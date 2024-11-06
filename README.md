@@ -1,12 +1,12 @@
-# Active Directory User Creation Script
+# Active Directory User Management Script
 
 ## Overview
 
-This PowerShell script automates the process of creating multiple Active Directory users from a CSV file. It provides error handling, detailed logging, and duplicate user detection.
+This PowerShell script automates the process of creating and deleting Active Directory users from a CSV file. It provides error handling, detailed logging, and user verification.
 
 ## Features
 
-- Bulk creation of Active Directory users from CSV
+- Bulk creation and deletion of Active Directory users from CSV
 - Preserves exact password formatting (including spaces and special characters)
 - Detailed logging with timestamps
 - Duplicate user detection and skipping
@@ -37,7 +37,7 @@ Import-Module ActiveDirectory
 
 ## CSV File Format
 
-The script requires a specific CSV format with the following headers:
+For user creation, the script requires a specific CSV format with the following headers:
 
 ```csv
 fullname,username,password
@@ -52,9 +52,24 @@ Sarah Jane Parker,sparker,Keep Spaces As Is!@#
 Robert James Brown,rjbrown,No@Trimming  Here
 ```
 
+For user deletion, only the username column is required:
+
+```csv
+username
+```
+
+Example CSV content:
+
+```csv
+jsmith
+sparker
+rjbrown
+```
+
 ### CSV Format Rules
 
-- The first line must contain the exact headers: `fullname,username,password`
+- For creation: The first line must contain the exact headers: `fullname,username,password`
+- For deletion: The first line must contain the exact header: `username`
 - `fullname`: Can contain multiple spaces (e.g., "John William Smith")
 - `username`: Should not contain spaces (e.g., "jsmith")
 - `password`: Can contain any characters, will be preserved exactly as entered
@@ -65,8 +80,16 @@ Robert James Brown,rjbrown,No@Trimming  Here
 
 2. Run the script as Administrator:
 
+For creating users:
+
 ```powershell
-.\Create-ADUsers.ps1 path\to\users.csv
+.\ADManager.ps1 path\to\users.csv create
+```
+
+For deleting users:
+
+```powershell
+.\ADManager.ps1 path\to\users.csv delete
 ```
 
 3. If no path is provided, the script will prompt for the CSV file location
@@ -112,4 +135,4 @@ Users are created with the following default settings:
 
 ## Disclaimer
 
-Always test this script in a non-production environment first. Review the CSV file carefully before running in production, as the script will create users with the exact passwords provided.
+Always test this script in a non-production environment first. Review the CSV file carefully before running in production, as the script will create users with the exact passwords provided or delete users permanently.
