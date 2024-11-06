@@ -26,7 +26,7 @@ This PowerShell script automates the process of creating and deleting Active Dir
 1. Clone this repository or download the script:
 
 ```powershell
-git clone https://github.com/alvinmurimi/Active-Directory-Automator.git
+git clone https://github.com/alvinmurimi/Active-Directory-Manager.git
 ```
 
 2. Ensure you have the Active Directory PowerShell module installed:
@@ -52,7 +52,7 @@ Sarah Jane Parker,sparker,Keep Spaces As Is!@#
 Robert James Brown,rjbrown,No@Trimming  Here
 ```
 
-For user deletion, only the username column is required:
+For user deletion, only the username column is required, additional columns:
 
 ```csv
 username
